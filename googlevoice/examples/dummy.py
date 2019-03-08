@@ -33,13 +33,10 @@ def extractsms(htmlsms):
 
 
 def run():
-
     while True:
-
         voice = Voice()
         voice.login("tlee753server@gmail.com", "13577531")
         voice.sms()
-
         for msg in extractsms(voice.sms.html):
             if msg:
                 print(msg)
