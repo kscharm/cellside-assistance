@@ -38,8 +38,14 @@ table.title {
 
 .title {
     color: rgba(240, 240, 240, 0.8);
-    margin: 30px;
+    margin: 20px;
     font-size: 48px;
+}
+
+.phone {
+    color: rgba(240, 240, 240, 0.8);
+    margin: 20px;
+    font-size: 24px;
 }
 
 button:focus {
