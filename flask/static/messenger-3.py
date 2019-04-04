@@ -44,8 +44,6 @@ class Messenger():
                     print(msg["time"] + "," + caller + "," + msg["text"], file=open("data.csv", "a"))
                     reply = self.patientDatabase.getPatient(msg["text"])
                     replyStr = self.toString(reply)
-                    if replyStr == None:
-                        replyStr = "error"
                     print(msg["time"] + "," + "17408720211" + "," + replyStr, file=open("data.csv", "a"))
                     voice.send_sms(caller, replyStr)
 
@@ -58,13 +56,13 @@ class Messenger():
             time.sleep(self.timer)
     def toString(self, obj):
         reply = ''
-        for key, val in obj.__dict__.items():
-            if type(val) is str:
-                reply += key + ": " + val + '\n'
-            if key == 'admissions':
+        for key, val in obj.items():
+            if key is str:
+                reply += str(key) + ": " + str(val) + '\n'
+            if type(val) is list:
                 admissions = ''
-                for admission in key:
-                    admissions += 'code: ' + admission[0] + ', ' admission[1] + '\n'
+                for admission in val:
+                    admissions += 'code: ' + admission["primaryDiagnosisCode"] + ", " + admission["primaryDiagnosisDescription"] + '\n'
                 reply += admissions
         return reply
 
