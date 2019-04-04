@@ -1,7 +1,8 @@
 import bs4
+import json
 import time
-
 from googlevoice import Voice
+
 
 class Messenger():
 
@@ -41,12 +42,18 @@ class Messenger():
                 if msg:
                     if self.debug:
                         print(msg)
+
                     caller = msg["from"].replace("+", "").replace(":", "")
-                    voice.send_sms(caller, msg["text"] + " is so cool! :D")
+                    print(msg["time"] + "," + caller + "," + msg["text"], file=open("data.csv", "a"))
+                    
+                    reply = msg["text"] + " is so cool! :D"
+                    print(msg["time"] + "," + "17408720211" + "," + reply, file=open("data.csv", "a"))
+                    voice.send_sms(caller, reply)
 
                     for message in voice.sms().messages:
                         if message.isRead:
                             message.delete()
+
             if self.debug:
                 print('Idle Counter: ' + str(i))
             time.sleep(self.timer)

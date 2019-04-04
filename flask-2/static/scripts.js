@@ -43,3 +43,39 @@ setInterval(function() {
     
     document.body.style.background = (gradient3 + ", " + gradient4 + ", " + gradient5 + ", " + gradient6);
 }, 100);
+
+// setInterval(function() {
+//     // read csv file
+//     // parse into html
+//         // limit to 10 items
+//     html = "<tr><th>Time</th><th>Sender</th><th><th>Message</th></tr>"
+//     document.getElementById("chat").innerHTML = html;
+// }, 5000);
+
+setInterval(function() {
+
+    
+
+    d3.text("./static/data.csv", function(data) {
+        var parsedCSV = d3.csv.parseRows(data);
+        console.log(parsedCSV);
+    
+        d3.select("table").remove();
+
+        d3.select("body")
+            .append("table")
+
+            .selectAll("tr")
+                .data(parsedCSV).enter()
+                .append("tr")
+    
+            // .selectAll("th")
+            //     .data(["Time", "Sender", "Message"]).enter()
+            //     .append("th")
+
+            .selectAll("td")
+                .data(function(d) { return d; }).enter()
+                .append("td")
+                .text(function(d) { return d; });
+    });
+}, 3000);
