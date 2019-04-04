@@ -1,6 +1,7 @@
 import bs4
 import json
 import time
+import Database
 from googlevoice import Voice
 
 
@@ -12,6 +13,7 @@ class Messenger():
         self.username = "tlee753server"
         self.password = "13577531"
         self.timer = 8
+        self.patientDatabase = Database.PatientCollection()
 
     def extractsms(self, htmlsms):
         msgitems = []
@@ -46,9 +48,7 @@ class Messenger():
 
                     caller = msg["from"].replace("+", "").replace(":", "")
                     print(msg["time"] + "," + caller + "," + msg["text"], file=open("data.csv", "a"))
-                    
-                    # reply = msg["text"] + " is so cool! :D"
-                    reply = dbFunciton(msg["text"])
+                    reply = self.patientDatabase.getPatient(msg["text"])
                     print(msg["time"] + "," + "17408720211" + "," + reply, file=open("data.csv", "a"))
                     voice.send_sms(caller, reply)
 
