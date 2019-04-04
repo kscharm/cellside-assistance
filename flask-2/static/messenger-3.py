@@ -43,12 +43,15 @@ class Messenger():
 
             for msg in self.extractsms(voice.sms.html):
                 if msg:
+
                     if self.debug:
                         print(msg)
 
                     caller = msg["from"].replace("+", "").replace(":", "")
                     print(msg["time"] + "," + caller + "," + msg["text"], file=open("data.csv", "a"))
-                    reply = self.patientDatabase.getPatient(msg["text"])
+                    reply = str(self.patientDatabase.getPatient(msg["text"]))
+                    if reply == None:
+                        reply = "error"
                     print(msg["time"] + "," + "17408720211" + "," + reply, file=open("data.csv", "a"))
                     voice.send_sms(caller, reply)
 
