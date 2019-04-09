@@ -1,7 +1,7 @@
 import bs4
 import json
 import time
-import Database
+from Language import Language
 from googlevoice import Voice
 
 
@@ -12,7 +12,7 @@ class Messenger():
         self.username = "tlee753server"
         self.password = "13577531"
         self.timer = 8
-        self.patientDatabase = Database.PatientCollection()
+        self.language = Language()
 
     def extractsms(self, htmlsms):
         msgitems = []
@@ -41,11 +41,12 @@ class Messenger():
                     if self.debug:
                         print(msg)
                     caller = msg["from"].replace("+", "").replace(":", "")
-                    print(msg["time"] + "," + caller + "," + msg["text"], file=open("data.csv", "a"))
-                    reply = self.patientDatabase.getPatient(msg["text"])
-                    replyStr = self.toString(reply)
-                    print(msg["time"] + "," + "17408720211" + "," + replyStr, file=open("data.csv", "a"))
-                    voice.send_sms(caller, replyStr)
+                    print(msg["time"] + '\t' + caller + '\t' + msg["text"], file=open("data.tsv", "a"))
+                    replyRaw = self.language.reply(msg["text"])
+                    replyFormatted = self.language.format(replyRaw)
+                    print(msg["time"] + '\t' + "17408720211" + '\t' + replyFormatted, file=open("data.tsv", "a"))
+                    replyFormatted = replyFormatted.replace("\t", "\n")
+                    voice.send_sms(caller, replyFormatted)
 
                     for message in voice.sms().messages:
                         if message.isRead:
@@ -54,17 +55,8 @@ class Messenger():
             if self.debug:
                 print('Idle Counter: ' + str(i))
             time.sleep(self.timer)
-    def toString(self, obj):
-        reply = ''
-        for key, val in obj.items():
-            if key is str:
-                reply += str(key) + ": " + str(val) + '\n'
-            if type(val) is list:
-                admissions = ''
-                for admission in val:
-                    admissions += 'code: ' + admission["primaryDiagnosisCode"] + ", " + admission["primaryDiagnosisDescription"] + '\n'
-                reply += admissions
-        return reply
+    
+
 
 m = Messenger()
 m.run()

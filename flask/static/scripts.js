@@ -4,7 +4,7 @@ var color1, color2, color3;
 var color4, color5, color6;
 var gradient1, gradient2, gradient3, gradient4;
 
-setInterval(function() {  
+setInterval(function () {
     if (r1 > 60 && b1 == 60) {
         r1--;
         g1++;
@@ -40,9 +40,9 @@ setInterval(function() {
     gradient4 = "linear-gradient(150deg, " + color2 + ", " + color3 + ", " + color1 + " 60%)";
     gradient5 = "linear-gradient(190deg, " + color4 + ", " + color5 + ", " + color6 + " 30%)";
     gradient6 = "linear-gradient(230deg, " + color5 + ", " + color6 + ", " + color4 + " 30%)";
-    
+
     document.body.style.background = (gradient3 + ", " + gradient4 + ", " + gradient5 + ", " + gradient6);
-}, 100);
+}, 400);
 
 // setInterval(function() {
 //     // read csv file
@@ -52,30 +52,55 @@ setInterval(function() {
 //     document.getElementById("chat").innerHTML = html;
 // }, 5000);
 
-setInterval(function() {
 
-    
+d3.text("./static/data.tsv", function (data) {
+    var parsedTSV = d3.tsv.parseRows(data);
+    // console.log(parsedCSV);
 
-    d3.text("./static/data.csv", function(data) {
-        var parsedCSV = d3.csv.parseRows(data);
-        console.log(parsedCSV);
-    
+    d3.select("table").remove();
+
+    d3.select("body")
+        .append("table")
+
+        .selectAll("tr")
+        .data(parsedTSV).enter()
+        .append("tr")
+
+        // .selectAll("th")
+        //     .data(["Time", "Sender", "Message"]).enter()
+        //     .append("th")
+
+        .selectAll("td")
+        .data(function (d) { return d; }).enter()
+        .append("td")
+        .text(function (d) { return d; });
+});
+
+
+setInterval(function () {
+
+    localStorage.clear()
+
+    d3.text("./static/data.tsv", function (data) {
+        var parsedTSV = d3.tsv.parseRows(data);
+        // console.log(parsedCSV);
+
         d3.select("table").remove();
 
         d3.select("body")
             .append("table")
 
             .selectAll("tr")
-                .data(parsedCSV).enter()
-                .append("tr")
-    
+            .data(parsedTSV).enter()
+            .append("tr")
+
             // .selectAll("th")
             //     .data(["Time", "Sender", "Message"]).enter()
             //     .append("th")
 
             .selectAll("td")
-                .data(function(d) { return d; }).enter()
-                .append("td")
-                .text(function(d) { return d; });
+            .data(function (d) { return d; }).enter()
+            .append("td")
+            .text(function (d) { return d; });
     });
 }, 3000);
