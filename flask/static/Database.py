@@ -2,7 +2,7 @@ from pymongo import MongoClient
 from bson import ObjectId
 import json
 
-host = 'localhost'
+host = '172.17.0.3'
 port = 27017
 dbName = 'cellsideAssistance'
 

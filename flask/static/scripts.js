@@ -44,15 +44,6 @@ setInterval(function () {
     document.body.style.background = (gradient3 + ", " + gradient4 + ", " + gradient5 + ", " + gradient6);
 }, 400);
 
-// setInterval(function() {
-//     // read csv file
-//     // parse into html
-//         // limit to 10 items
-//     html = "<tr><th>Time</th><th>Sender</th><th><th>Message</th></tr>"
-//     document.getElementById("chat").innerHTML = html;
-// }, 5000);
-
-
 d3.text("./static/data.tsv", function (data) {
     var parsedTSV = d3.tsv.parseRows(data);
     // console.log(parsedCSV);
@@ -72,21 +63,7 @@ d3.text("./static/data.tsv", function (data) {
         .text(function (d) { return d; });
 });
 
-
 setInterval(function () {
-
-    // const Http = new XMLHttpRequest();
-    // const url = './static/data.tsv';
-    // Http.open("GET", url);
-    // Http.send();
-    // console.log(Http.responseText);
-    // Http.onreadystatechange = (e) => {
-    // //     // console.log(Http.responseText)
-
-    // // }
-
-    // var myFetch = fetch("./static/data.tsv");
-
 
     var myHeaders = new Headers();
     myHeaders.append('pragma', 'no-cache');
@@ -102,7 +79,7 @@ setInterval(function () {
     fetch(myRequest, myInit).then(function (response) {
         response.text().then(function (text) {
 
-            console.log(text);
+            // console.log(text);
 
             var parsedTSV = d3.tsv.parseRows(text);
             // console.log(parsedCSV);
@@ -120,26 +97,6 @@ setInterval(function () {
                 .data(function (d) { return d; }).enter()
                 .append("td")
                 .text(function (d) { return d; });
-
         });
     });
-
-    // d3.text("./static/data.tsv", function (data) {
-    //     var parsedTSV = d3.tsv.parseRows(data);
-    //     // console.log(parsedCSV);
-
-    //     d3.select("tbody").remove();
-
-    //     d3.select("table")
-    //         .append("tbody")
-
-    //         .selectAll("tr")
-    //         .data(parsedTSV).enter()
-    //         .append("tr")
-
-    //         .selectAll("td")
-    //         .data(function (d) { return d; }).enter()
-    //         .append("td")
-    //         .text(function (d) { return d; });
-    // });
 }, 3000);

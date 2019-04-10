@@ -44,9 +44,10 @@ class Messenger():
                     print(msg["time"] + '\t' + caller + '\t' + msg["text"], file=open("data.tsv", "a"))
                     replyRaw = self.language.reply(msg["text"])
                     replyFormatted = self.language.format(replyRaw)
+                    print(type(replyFormatted))
                     print(msg["time"] + '\t' + "17408720211" + '\t' + replyFormatted, file=open("data.tsv", "a"))
                     replyFormatted = replyFormatted.replace("\t", "\n")
-                    voice.send_sms(caller, replyFormatted)
+                    voice.send_sms(caller, str(replyFormatted))
 
                     for message in voice.sms().messages:
                         if message.isRead:
