@@ -49,7 +49,7 @@ class Language():
                     "To access patient records, send one of the following: "
                     "'<PATIENT NAME> or <PATIENT_ID>'. "
                     "To query specific information about a patient, "
-                    "use the # symbol followed by the field name.\n"
+                    "use the # symbol followed by the field name.\t"
                     "Ex. Kenny Scharm #admissions")
         else:
             reply = ''

@@ -57,18 +57,14 @@ d3.text("./static/data.tsv", function (data) {
     var parsedTSV = d3.tsv.parseRows(data);
     // console.log(parsedCSV);
 
-    d3.select("table").remove();
+    d3.select("tbody").remove();
 
-    d3.select("body")
-        .append("table")
+    d3.select("table")
+        .append("tbody")
 
         .selectAll("tr")
         .data(parsedTSV).enter()
         .append("tr")
-
-        // .selectAll("th")
-        //     .data(["Time", "Sender", "Message"]).enter()
-        //     .append("th")
 
         .selectAll("td")
         .data(function (d) { return d; }).enter()
@@ -79,28 +75,71 @@ d3.text("./static/data.tsv", function (data) {
 
 setInterval(function () {
 
-    localStorage.clear()
+    // const Http = new XMLHttpRequest();
+    // const url = './static/data.tsv';
+    // Http.open("GET", url);
+    // Http.send();
+    // console.log(Http.responseText);
+    // Http.onreadystatechange = (e) => {
+    // //     // console.log(Http.responseText)
 
-    d3.text("./static/data.tsv", function (data) {
-        var parsedTSV = d3.tsv.parseRows(data);
-        // console.log(parsedCSV);
+    // // }
 
-        d3.select("table").remove();
+    // var myFetch = fetch("./static/data.tsv");
 
-        d3.select("body")
-            .append("table")
 
-            .selectAll("tr")
-            .data(parsedTSV).enter()
-            .append("tr")
+    var myHeaders = new Headers();
+    myHeaders.append('pragma', 'no-cache');
+    myHeaders.append('cache-control', 'no-cache');
 
-            // .selectAll("th")
-            //     .data(["Time", "Sender", "Message"]).enter()
-            //     .append("th")
+    var myInit = {
+        method: 'GET',
+        headers: myHeaders,
+    };
 
-            .selectAll("td")
-            .data(function (d) { return d; }).enter()
-            .append("td")
-            .text(function (d) { return d; });
+    var myRequest = new Request('/static/data.tsv');
+
+    fetch(myRequest, myInit).then(function (response) {
+        response.text().then(function (text) {
+
+            console.log(text);
+
+            var parsedTSV = d3.tsv.parseRows(text);
+            // console.log(parsedCSV);
+
+            d3.select("tbody").remove();
+
+            d3.select("table")
+                .append("tbody")
+
+                .selectAll("tr")
+                .data(parsedTSV).enter()
+                .append("tr")
+
+                .selectAll("td")
+                .data(function (d) { return d; }).enter()
+                .append("td")
+                .text(function (d) { return d; });
+
+        });
     });
+
+    // d3.text("./static/data.tsv", function (data) {
+    //     var parsedTSV = d3.tsv.parseRows(data);
+    //     // console.log(parsedCSV);
+
+    //     d3.select("tbody").remove();
+
+    //     d3.select("table")
+    //         .append("tbody")
+
+    //         .selectAll("tr")
+    //         .data(parsedTSV).enter()
+    //         .append("tr")
+
+    //         .selectAll("td")
+    //         .data(function (d) { return d; }).enter()
+    //         .append("td")
+    //         .text(function (d) { return d; });
+    // });
 }, 3000);
