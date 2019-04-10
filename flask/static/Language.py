@@ -8,10 +8,12 @@ class Language():
     def reply(self, text):
         isName = bool(re.match('[A-z]{2,25}( [A-z]{2,25}){1}', text))
         isPatientId = bool(re.match('[A-z0-9]{8}-[A-z0-9]{4}-[A-z0-9]{4}-[A-z0-9]{4}-[A-z0-9]{12}', text))
+        isHelp = bool("help" in text.lower())
         fields = ["maritalStatus", "name", "language", "gender", "patientId", "admissions", "dateOfBirth", "race", "populationPercentageBelowPoverty"]
         hashTag = "#" in text
-        #print("name: " + str(isName) + ", " + "patientId: " + str(isPatientId))
-        if isName or isPatientId:
+        if isHelp:
+            return "help"
+        elif isName or isPatientId:
             if hashTag:
                 startIndex = text.index("#") + 1
                 field = text[startIndex : len(text)]
@@ -41,7 +43,14 @@ class Language():
         separator = "\t"
         print(obj)
         if obj is None:
-            reply = "Invalid request. For more help, please text the word help."
+            reply = "Invalid request. For more help, please text the word 'help'."
+        elif obj == "help":
+            reply = ("Welcome to Cellside Assistance! "
+                    "To access patient records, send one of the following: "
+                    "'<PATIENT NAME> or <PATIENT_ID>'. "
+                    "To query specific information about a patient, "
+                    "use the # symbol followed by the field name.\n"
+                    "Ex. Kenny Scharm #admissions")
         else:
             reply = ''
             for key, val in obj.items():
