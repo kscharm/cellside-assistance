@@ -55,7 +55,7 @@ class Messenger():
             if self.debug:
                 print('Idle Counter: ' + str(i))
             time.sleep(self.timer)
-    
+        voice.logout()
 
 
 m = Messenger()
