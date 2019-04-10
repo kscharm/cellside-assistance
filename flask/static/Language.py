@@ -47,7 +47,7 @@ class Language():
         elif obj == "help":
             reply = ("Welcome to Cellside Assistance! "
                     "To access patient records, send one of the following: "
-                    "'<PATIENT NAME> or <PATIENT_ID>. "
+                    "'<PATIENT NAME> or <PATIENT_ID>'. "
                     "To query specific information about a patient, "
                     "use the # symbol followed by the field name.\n"
                     "Ex. Kenny Scharm #admissions")
