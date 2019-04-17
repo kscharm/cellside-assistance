@@ -5,8 +5,8 @@ import json
 import collections
 import names
 
-src1 = 'F:/Georgia Tech/graduate/cs6365/cellside-assistance/patient-data/CombinedPatientData.json'
-dst = 'C:/Users/Kenny/Desktop/NamedPatientData.json'
+src1 = 'CombinedPatientData.json'
+dst = 'NamedPatientData.json'
 data = []
 
 with open(src1) as f1:

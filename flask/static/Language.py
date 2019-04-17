@@ -6,14 +6,19 @@ class Language():
         self.patientDatabase = Database.PatientCollection()
 
     def reply(self, text):
+        # Regular expressions that match names and patient IDs 
         isName = bool(re.match('[A-z]{2,25}( [A-z]{2,25}){1}', text))
         isPatientId = bool(re.match('[A-z0-9]{8}-[A-z0-9]{4}-[A-z0-9]{4}-[A-z0-9]{4}-[A-z0-9]{12}', text))
         isHelp = bool("help" in text.lower())
         fields = ["maritalStatus", "name", "language", "gender", "patientId", "admissions", "dateOfBirth", "race", "populationPercentageBelowPoverty"]
         hashTag = "#" in text
+        # If message contains the world help, reply with help message
         if isHelp:
             return "help"
+        # If message contains name or patient ID, query the database
+        # Else reply with invalid request message
         elif isName or isPatientId:
+            # If a hashtag is present, strip the field name and check validity
             if hashTag:
                 startIndex = text.index("#") + 1
                 field = text[startIndex : len(text)]
@@ -52,6 +57,7 @@ class Language():
                     "use the # symbol followed by the field name.\t"
                     "Ex. Kenny Scharm #admissions")
         else:
+            # Stringify reply message into a human-readable format
             reply = ''
             for key, val in obj.items():
                 if type(val) is str:

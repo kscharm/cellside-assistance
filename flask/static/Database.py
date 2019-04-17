@@ -2,7 +2,8 @@ from pymongo import MongoClient
 from bson import ObjectId
 import json
 
-host = '172.17.0.3'
+# Database connection information
+host = 'localhost'
 port = 27017
 dbName = 'cellsideAssistance'
 
@@ -40,7 +41,7 @@ class PatientCollection(MongoConnection):
     def updatePatient(self, patientId, patient):
         return self.collection.update_one({'id': patientId}, patient)
 
-    def deletePatient(self, patiendId):
+    def deletePatient(self, patientId):
         return self.collection.delete_one({'id': patientId})
     
     def createPatient(self, patient):

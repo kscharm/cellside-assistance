@@ -4,9 +4,9 @@ import csv
 import json
 import collections
 
-src1 = 'C:/Users/Kenny/Desktop/data.json'
-src2 = 'C:/Users/Kenny/Desktop/data2.json'
-dst = 'C:/Users/Kenny/Desktop/combined.json'
+src1 = 'data.json'
+src2 = 'data2.json'
+dst = 'combined.json'
 data = []
 
 with open(src1) as f1:

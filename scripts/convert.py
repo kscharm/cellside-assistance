@@ -7,8 +7,8 @@ import collections
 # aliases
 OrderedDict = collections.OrderedDict
 
-src = 'C:/Users/Kenny/Desktop/PatientCorePopulatedTable.txt'
-dst = 'C:/Users/Kenny/Desktop/data.json'
+src = 'PatientCorePopulatedTable.txt'
+dst = 'data.json'
 header = [
     "patientId", "gender","dateOfBirth", "race", "maritalStatus", "language", "populationPercentageBelowPoverty"
 ]
