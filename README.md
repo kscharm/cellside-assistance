@@ -35,7 +35,10 @@ Helping remote medical personnel access critical patient information via SMS.
 3. Store your account information in ```self.username``` and ```self.password``` in ```Messenger.py```
 
 ### Docker Build Instructions
-1. 
+1. Enter the rood directory of the project and run the following command to build the docker image for cellside.
+```docker build -t cellside:latest .```
+2. To run the image in a container with detached output, simpy run
+```docker run -d -p 5000:5000 cellside```
 
 ### Run Instructions
 1. Navigate to ```\flask``` and run ```python Main.py``` to launch the Flask web application.
