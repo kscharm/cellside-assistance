@@ -40,7 +40,7 @@ Helping remote medical personnel access critical patient information via SMS.
 3. Send text messages from your mobile phone to the Google Voice number you setup. Text the word ```help``` to get started!
 
 ### Docker Build Instructions
-1. Enter the rood directory of the project and run the following command to build the docker image for cellside.
+1. Enter the rood directory of the project and run the following command to build the docker image for cellside. The first time this command is run, Docker will pull the latest sources and requirements, therefore it will take a bit longer than normal as these sources are being cached.
 
 ```docker build -t cellside:latest .```
 
